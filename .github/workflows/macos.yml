@@ -38,7 +38,7 @@ jobs:
       fail-fast: false
       matrix:
         BUILDTYPE: [Debug, Release]
-        DISTVER: [13]
+        DISTVER: [15]
         include:
           - BUILDTYPE: Debug
             CMAKEFLAGS: >-
@@ -46,7 +46,7 @@ jobs:
           - BUILDTYPE: Release
             CMAKEFLAGS: >-
               -DCMAKE_BUILD_TYPE=Release
-    runs-on: macos-${{ matrix.DISTVER }}
+    runs-on: macos-${{ matrix.DISTVER }}-intel
     name: >-
       macOS ${{ matrix.DISTVER }}
       /
