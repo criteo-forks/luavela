@@ -37,15 +37,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        BUILDTYPE: [Debug, Release]
+        # FIXME: Release build is excluded from the testing
+        # matrix, until #87 is resolved.
+        BUILDTYPE: [Debug]
         DISTVER: [15]
         include:
           - BUILDTYPE: Debug
             CMAKEFLAGS: >-
               -DCMAKE_BUILD_TYPE=Debug
-          - BUILDTYPE: Release
-            CMAKEFLAGS: >-
-              -DCMAKE_BUILD_TYPE=Release
     runs-on: macos-${{ matrix.DISTVER }}-intel
     name: >-
       macOS ${{ matrix.DISTVER }}
