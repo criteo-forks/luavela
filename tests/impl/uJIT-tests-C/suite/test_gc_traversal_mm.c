@@ -1,7 +1,7 @@
 /*
  * Test cases:
  *  * Traversing coroutine stack inside GC during metamethod call from C API
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  */
 
