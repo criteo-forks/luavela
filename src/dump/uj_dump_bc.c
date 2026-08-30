@@ -2,7 +2,7 @@
  * C-level bytecode dumper for functions, protos and single instructions.
  * Port of LuaJIT's original bytecode dumper bc.lua with some modifications
  * and reasonable simplifications (marked with NB! throughout the code).
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  */
 
@@ -236,7 +236,7 @@ static FILE *dump_bc_open_chunk(const GCproto *pt)
 /* Skip to a new line in a file (can reach EOF if on the last line) */
 static void dump_bc_skip_to_new_line(struct source_dumper_state *sds)
 {
-	char c;
+	int c;
 
 	do {
 		c = fgetc(sds->file);

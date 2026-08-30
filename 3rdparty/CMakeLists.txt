@@ -1,5 +1,5 @@
 # Building 3rd-party components for uJIT.
-# Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+# Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 # Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 
 include(ExternalProject)
@@ -29,6 +29,10 @@ set(UDIS86_SOURCES
 # All fallthrough cases are documented and shouldn't trigger warnings:
 set_source_files_properties(${UDIS86_DIR}/libudis86/decode.c
   PROPERTIES COMPILE_FLAGS -Wno-implicit-fallthrough)
+
+# Warnings are generated for the ARM64 build:
+set_source_files_properties(${UDIS86_DIR}/libudis86/syn.c
+  PROPERTIES COMPILE_FLAGS -Wno-error=format)
 
 # Pretend we have run autoconf for real:
 set_source_files_properties(${UDIS86_DIR}/libudis86/udis86.c

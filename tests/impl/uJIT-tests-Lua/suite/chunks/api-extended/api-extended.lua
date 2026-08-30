@@ -1,5 +1,5 @@
 -- This is a part of uJIT's testing suite.
--- Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+-- Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 -- Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 
 local table_size = ujit.table.size
@@ -20,8 +20,9 @@ assert(type(ujit.coverage.stop) == "function")
 assert(type(ujit.coverage.unpause) == "function")
 
 -- ujit.debug
-assert(table_size(ujit.debug) == 1)
+assert(table_size(ujit.debug) == 2)
 assert(type(ujit.debug.gettableinfo) == "function")
+assert(type(ujit.debug.cinterpcall) == "function")
 
 -- ujit.dump
 assert(table_size(ujit.dump) == 7)

@@ -1,6 +1,6 @@
 /*
  * Lua interface to uJIT-specific extensions to the public Lua/C API.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  */
 
@@ -894,6 +894,15 @@ LJLIB_CF(ujit_debug_gettableinfo)
 	setnumfield(L, info, "hmaxchain", (int64_t)ti.hmaxchain);
 
 	return 1;
+}
+
+#include "uj_vm.h"
+/* local ... = ujit.debug.cinterpcall(func, ...) */
+LJLIB_CF(ujit_debug_cinterpcall)
+{
+	/* LUA_MULTRET+1 means all results must be returned */
+	uj_vm_call(L, L->base + 1, LUA_MULTRET + 1);
+	return (int)(L->top - L->base);
 }
 
 #include "lj_libdef.h"

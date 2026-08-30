@@ -2,7 +2,7 @@
 #
 # Generic tests for indexed loads and stores.
 # This is a part of uJIT's testing suite.
-# Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+# Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 # Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 #
 
@@ -12,6 +12,11 @@ use strict;
 use lib './lib';
 
 use UJit::Test;
+use Test::More;
+
+if ($ENV{'UJIT_CINTERP'} && $ENV{'UJIT_CINTERP'} eq 'ON') {
+    plan skip_all => 'Relies on JIT support';
+}
 
 my $tester     = UJit::Test->new(
     chunks_dir => './chunks/ir_indexed',

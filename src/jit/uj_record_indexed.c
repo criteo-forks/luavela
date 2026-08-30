@@ -1,6 +1,6 @@
 /*
  * Indexed lods / store recorder.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  *
  * Portions taken verbatim or adapted from LuaJIT.
@@ -23,7 +23,7 @@
 #define REC_MM 0 /* JIT is prepared to record metamethod. */
 #define REC_MO 1 /* Mobj isn't a function, continue lookup. */
 
-#define TREF_CONTINUE_REC ((TRef)-1) /* Special return code. */
+#define TREF_CONTINUE_REC ((TRef) - 1) /* Special return code. */
 
 /* Some local macros to save typing. Undef'd at the end. */
 #define IR(ref) (&J->cur.ir[(ref)])

@@ -5,7 +5,7 @@
  * hook". This allows to avoid confusion with the term "call hook", a certain
  * hook type which has to be *invoked* whenever e.g. some Lua code
  * *calls* another Lua code.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  *
  * Portions taken verbatim or adapted from LuaJIT.
@@ -236,8 +236,7 @@ static void hook_call_invoke(struct lua_State *L, int missing)
 		L->top--;
 }
 
-/* Call dispatch. Used by call hooks, hot calls or when recording. */
-ASMFunction uj_hook_call(struct lua_State *L, const BCIns *pc)
+static LJ_AINLINE BCOp uj_hook_generic(struct lua_State *L, const BCIns *pc)
 {
 	int olderr = errno_save();
 	int missing;
@@ -261,5 +260,18 @@ ASMFunction uj_hook_call(struct lua_State *L, const BCIns *pc)
 out:
 	op = hook_get_op(L, pc); /* Get FUNC* op */
 	errno_restore(olderr);
-	return lj_bc_ptr[op]; /* Return static dispatch target. */
+	return op;
+}
+
+/* Call dispatch. Used by call hooks, hot calls or when recording. */
+ASMFunction uj_hook_call(struct lua_State *L, const BCIns *pc)
+{
+	/* Return static dispatch target. */
+	return lj_bc_ptr[uj_hook_generic(L, pc)];
+}
+
+/* Same as uj_hook_call but for C interp. */
+CInterpFunction uj_hook_call_cinterp(struct lua_State *L, const BCIns *pc)
+{
+	return uj_vm_bc_dispatch_cinterp[uj_hook_generic(L, pc)];
 }

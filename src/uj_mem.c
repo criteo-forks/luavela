@@ -1,6 +1,6 @@
 /*
  * Implementation of the dynamic memory management.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  */
 
@@ -17,8 +17,13 @@
 static void mem_err(lua_State *L)
 {
 	/* Don't touch the stack during lua_open. */
-	if (uj_state_has_event(L, EXTEV_VM_INIT))
+	if (uj_state_has_event(L, EXTEV_VM_INIT)) {
+#ifdef UJIT_CINTERP
+		abort();
+#else
 		lj_vm_unwind_c(L->cframe, LUA_ERRMEM);
+#endif
+	}
 
 	uj_state_stack_sync_top(L);
 	setstrV(L, L->top++, uj_errmsg_str(L, UJ_ERR_ERRMEM));

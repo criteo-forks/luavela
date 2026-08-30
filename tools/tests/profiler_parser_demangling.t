@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # Tests for demangling native symbols.
-# Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+# Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 # Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 
 use 5.010;
@@ -12,7 +12,12 @@ use strict;
 use lib '../../tests/impl/uJIT-tests-Lua/suite/lib';
 
 use UJit::Test;
+use Test::More;
 use Cwd;
+
+if ($ENV{'UJIT_CINTERP'} && $ENV{'UJIT_CINTERP'} eq 'ON') {
+    plan skip_all => 'Might crash';
+}
 
 my $cwd        = Cwd::cwd();
 my $tools_dir  = $ENV{TOOLS_BIN_DIR} // "$cwd/..";

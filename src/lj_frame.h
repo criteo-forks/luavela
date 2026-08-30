@@ -1,6 +1,6 @@
 /*
  * Guest stack frames.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  *
  * Portions taken verbatim or adapted from LuaJIT.
@@ -46,15 +46,23 @@ enum {
 LJ_AINLINE ASMFunction frame_contf(const TValue *f)
 {
 UJ_PEDANTIC_OFF /* casting void* to a function ptr */
+#ifdef UJIT_CINTERP
+  return ((ASMFunction)(void *)(f-1)->u64);
+#else
   return ((ASMFunction)(void *)((intptr_t)lj_vm_asm_begin +
                          (intptr_t)(int32_t)(f-1)->u32.lo));
+#endif
 UJ_PEDANTIC_ON
 }
 
 LJ_AINLINE void setcont(TValue *o, ASMFunction f)
 {
 UJ_PEDANTIC_OFF /* casting a function ptr to void* */
+#ifdef UJIT_CINTERP
+  o->u64 = (uint64_t)(void *)f;
+#else
   o->u64 = (uint64_t)(void *)f - (uint64_t)lj_vm_asm_begin;
+#endif
 UJ_PEDANTIC_ON
 }
 

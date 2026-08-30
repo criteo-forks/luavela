@@ -1,6 +1,6 @@
 /*
  * Accessing processor identification and feature information.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  *
  * NB! Built-in function __get_cpuid is not documented in GCC manual,
@@ -18,6 +18,7 @@
 #error "cpuinfo module supports GCC compilation only"
 #endif
 
+#if __x86_64__
 #if __GNUC__ < 4 || \
   ( __GNUC__ == 4 && __GNUC_MINOR < 8)
 #include <cpuid.h>
@@ -72,4 +73,4 @@ int cpuinfo_has_sse4_1(void) {
   return __builtin_cpu_supports("sse4.1");
 }
 #endif
-
+#endif

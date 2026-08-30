@@ -1,6 +1,6 @@
 /*
  * Instruction dispatch handling.
- * Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+ * Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
  * Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
  *
  * Portions taken verbatim or adapted from LuaJIT.
@@ -16,6 +16,7 @@
 #include "jit/lj_jit.h"
 #endif /* LJ_HASJIT */
 #include "lj_vm.h"
+#include "uj_vm.h"
 
 #define HOTCOUNT_STEP 1
 
@@ -35,11 +36,13 @@ struct GG_State {
 #endif /* LJ_HASJIT */
 	ASMFunction dispatch[GG_LEN_DISP]; /* Instruction dispatch tables */
 	BCIns bcff[GG_NUM_ASMFF]; /* Bytecode for ASM fast functions */
+	/* C interpreter instruction dispatch table */
+	CInterpFunction dispatch_cinterp[GG_LEN_DISP];
 };
 
 #define GG_OFS(field) ((int)offsetof(struct GG_State, field))
-#define G2GG(gl) ((struct GG_State *)((char *)(gl)-GG_OFS(g)))
-#define J2GG(j) ((struct GG_State *)((char *)(j)-GG_OFS(J)))
+#define G2GG(gl) ((struct GG_State *)((char *)(gl) - GG_OFS(g)))
+#define J2GG(j) ((struct GG_State *)((char *)(j) - GG_OFS(J)))
 #define L2GG(L) (G2GG(G(L)))
 #define J2G(J) (&J2GG(J)->g)
 #define G2J(gl) (&G2GG(gl)->J)

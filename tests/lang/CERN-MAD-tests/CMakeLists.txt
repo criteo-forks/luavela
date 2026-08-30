@@ -2,7 +2,7 @@
 # Part of the test suite for Methodical Accelerator Design
 # Source: https://github.com/MethodicalAcceleratorDesign/MAD
 #
-# Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+# Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 # Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 
 set(SUITE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -39,5 +39,6 @@ add_custom_command(
       SUITE_DIR=${SUITE_DIR}
       SUITE_OUT_DIR=${SUITE_OUT_DIR}
       TEST_FILES="${TEST_FILES}"
+      COMPILER=${CMAKE_C_COMPILER}
     ${SUITE_RUNNER}
 )

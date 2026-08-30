@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # Tests for uJIT profile parser.
-# Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+# Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 # Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 
 use 5.010;
@@ -12,7 +12,13 @@ use strict;
 use lib '../../tests/impl/uJIT-tests-Lua/suite/lib';
 
 use UJit::Test;
+use Test::More;
 use Cwd;
+
+if ($ENV{'UJIT_CINTERP'} && $ENV{'UJIT_CINTERP'} eq 'ON') {
+    plan skip_all => 'Might crash';
+}
+
 
 # Let's generate a tiny fake stream for each case and try to parse them.
 sub run_case

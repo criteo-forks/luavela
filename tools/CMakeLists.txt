@@ -1,5 +1,5 @@
 # Building tools for developing with uJIT.
-# Copyright (C) 2020-2025 LuaVela Authors. See Copyright Notice in COPYRIGHT
+# Copyright (C) 2020-2026 LuaVela Authors. See Copyright Notice in COPYRIGHT
 # Copyright (C) 2015-2020 IPONWEB Ltd. See Copyright Notice in COPYRIGHT
 
 enable_language(C)
@@ -169,6 +169,7 @@ if(UJIT_ENABLE_PROFILER AND UJIT_ENABLE_MEMPROF)
         TOOLS_BIN_DIR=${CMAKE_CURRENT_BINARY_DIR}
         UJIT_BIN_DIR=$<TARGET_FILE_DIR:${UJIT_TEST_CLI_TARGET_NAME}>
         TEST_LIB_DIR=${UJIT_SRC_DIR}/../tests/impl/uJIT-tests-Lua/suite/lib
+	UJIT_CINTERP=${UJIT_CINTERP}
       ${CMAKE_CURRENT_SOURCE_DIR}/tests/run_iponweb_tools_tests.sh
   )
 
